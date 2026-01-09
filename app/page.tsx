@@ -443,7 +443,12 @@ export default function PortfolioPage() {
 
             {/* Column 1: Brand & Time */}
             <div className="space-y-4">
-              <h4 className="font-black text-xl tracking-tighter">N<span className="text-indigo-600">.</span>DEV</h4>
+              <img
+                src={"/images/favicon.png"}
+                alt={"N.Dev Logo"}
+                className="w-40 h-20 object-cover object-top opacity-80 group-hover:opacity-100 transition-all duration-700"
+              />
+              {/* <h4 className="font-black text-xl tracking-tighter">N<span className="text-indigo-600">.</span>DEV</h4> */}
               <div className="font-mono text-[10px] uppercase tracking-widest text-indigo-800">
                 <p>Local Time</p>
                 <p className="text-black font-bold">{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} GMT+5</p>
@@ -479,7 +484,7 @@ export default function PortfolioPage() {
           {/* Copyright Line */}
           <div className="mt-20 pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-mono uppercase tracking-[0.2em] text-black/40">
             <p>© 2026 MUHAMMAD NASEEF. ALL RIGHTS RESERVED.</p>
-            <p>EST. 2021</p>
+            <p>EST. 2022</p>
           </div>
         </div>
       </footer>
