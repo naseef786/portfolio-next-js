@@ -8,6 +8,7 @@ import {
   useSpring,
   AnimatePresence
 } from "framer-motion";
+import { FileDown, Download } from "lucide-react";
 import {
   Github, Linkedin, Mail, ExternalLink,
   Smartphone, Database, ArrowUpRight,
@@ -31,7 +32,7 @@ const MY_PROJECTS = [
   {
     title: "Appointment Booking",
     desc: "Car detailing booking system with Stripe payments and advanced scheduling.",
-    tags: ["React", "Node.js", "MongoDB", "Stripe"],
+    tags: ["React", "Node.js", "MongoDB", "Stripe", "Material UI"],
     image: "/images/T-Bros-Website-Screenshot.png",
     link: "https://t-bros.ca/booking",
   },
@@ -45,14 +46,14 @@ const MY_PROJECTS = [
   {
     title: "FaceMe Live",
     desc: "Real-time video calling mobile app with VOIP and PayPal integration.",
-    tags: ["React Native", "Firebase", "Zego"],
+    tags: ["React Native", "Firebase", "Zego", "Stripe", "Pubnub", "AWS SDK"],
     image: "/images/FaceMe-Website-Screenshot.png",
     link: "https://faceme.live/",
   },
   {
     title: "Travel CRM",
     desc: "Role-based CRM for travel agencies with MySQL & Firebase.",
-    tags: ["React", "TypeScript", "MySQL", "Firebase"],
+    tags: ["React", "TypeScript", "Firebase", "Tailwind"],
     image: "/images/Millwoods-CRM-Website-Screenshot.png",
     link: "http://mwcrmdev.cyberace.site/login",
   },
@@ -76,7 +77,7 @@ const EXPERIENCES = [
       "Optimized AWS environments and handled CI/CD pipelines for high-availability deployment.",
       "Mentored junior developers and enforced high code quality through rigorous reviews."
     ],
-    skills: ["AWS", "Firebase", "Stripe", "React Native", "Redux"]
+    skills: ["AWS", "Firebase", "Stripe", "React Native", "Redux", "Next.js", "Flutter"]
   },
   {
     company: "Bridgeon Solutions LLP",
@@ -88,7 +89,7 @@ const EXPERIENCES = [
       "Designed RESTful APIs using Node.js/Express with MongoDB architecture.",
       "Built internal HRM and tracking tools focusing on modular components and clean code."
     ],
-    skills: ["Node.js", "Express", "MongoDB", "MERN Stack"]
+    skills: ["Node.js", "Express", "MongoDB", "React", "React Native", "MERN Stack"]
   }
 ];
 
@@ -105,7 +106,7 @@ function StatItem({ Number, Label }: { Number: string; Label: string }) {
   );
 }
 const RoleSwitcher = () => {
-  const roles = ["MERN", "React Native", "Next.js 14", "Node.js", "Full Stack"];
+  const roles = ["MERN Stack", "React Native", "Next.js", "Node.js", "Full Stack", "React"];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -117,7 +118,7 @@ const RoleSwitcher = () => {
 
   return (
     <div className="flex items-center gap-2 overflow-hidden h-[24px]">
-      <span className="font-bold text-sm md:text-base">N<span className="hidden sm:inline">ASEEF</span></span>
+      <span className="font-bold text-sm md:text-base">MUHAMMAD<span className="hidden sm:inline"> NASEEF</span></span>
       <span className="text-white/30">|</span>
       <AnimatePresence mode="wait">
         <motion.span
@@ -128,7 +129,7 @@ const RoleSwitcher = () => {
           transition={{ duration: 0.5, ease: "circOut" }}
           className="text-indigo-400 font-mono text-[10px] md:text-xs font-bold uppercase tracking-tighter truncate"
         >
-          {roles[index]}
+          {roles[index]} Developer
         </motion.span>
       </AnimatePresence>
     </div>
@@ -141,7 +142,18 @@ export default function PortfolioPage() {
   const sectionRef = useRef(null);
   // Fixes the animation issue by tracking the section instead of individual cards
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const handleDownload = () => {
+    // 1. Play the systematic click sound
+    playClick();
 
+    // 2. Trigger the download
+    const link = document.createElement('a');
+    link.href = '/Muhammad_Naseef_Resume.pdf'; // Path in your /public folder
+    link.download = 'Naseef_MERN_Stack_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   const { scrollYProgress } = useScroll();
   const smoothY = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
@@ -202,7 +214,7 @@ export default function PortfolioPage() {
       </AnimatePresence>
 
       {/* --- 3. ENHANCED RESPONSIVE HERO --- */}
-      <section id="home" className="relative min-h-screen flex items-center px-6 md:px-20 overflow-hidden pt-24 sm:pt-30">
+      <section id="home" className="relative min-h-screen flex items-center px-6 md:px-20 overflow-hidden pt-24">
 
         {/* --- PARALLAX BACKGROUND ELEMENTS --- */}
         <motion.div
@@ -254,6 +266,7 @@ export default function PortfolioPage() {
                 </motion.div>
               ))}
             </div>
+            <HeroResumeButton playClick={playClick} />
 
             {/* 4. DATA COUNTERS (The Experience Stats) */}
             <div className="grid grid-cols-2 md:flex md:gap-20 gap-8 border-t border-white/10 pt-12">
@@ -266,7 +279,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* --- 4. EXPERTISE SECTION --- */}
-      <section id="expertise" className="py-20 md:py-32 px-6 md:px-20 border-y border-white/5">
+      <section id="expertise" className="py-12 md:py-32 px-6 md:px-20 border-y border-white/5">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-7xl font-black mb-12 tracking-tighter uppercase">Expertise</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -281,9 +294,9 @@ export default function PortfolioPage() {
       <section
         id="projects"
         ref={sectionRef}
-        className="py-24 md:py-40 bg-[#030303] text-white overflow-hidden"
+        className="py-20 md:py-20 bg-[#030303] text-white overflow-hidden"
       >
-        <div className="max-w-[1400px] mx-auto px-6 md:px-20">
+        <div className="max-w-350 mx-auto px-6 md:px-20">
 
           {/* --- HEADER --- */}
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-20 gap-8">
@@ -384,7 +397,7 @@ export default function PortfolioPage() {
       <footer id="contact" className="relative bg-white text-black pt-24 md:pt-40 pb-12 px-6 rounded-t-[3rem] md:rounded-t-[5rem] overflow-hidden">
 
         {/* Big Background Text - Subtle Parallax */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 whitespace-nowrap select-none pointer-events-none opacity-[0.03] text-[25vw] font-black italic">
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 whitespace-nowrap select-none pointer-events-none opacity-[0.05] text-[10vw] font-black italic">
           GET IN TOUCH
         </div>
 
@@ -448,9 +461,9 @@ export default function PortfolioPage() {
             {/* Column 3: Socials */}
             <div className="flex flex-col gap-3">
               <p className="font-mono text-[10px] uppercase text-black/30 mb-2">Socials</p>
-              <a href="#" className="font-bold hover:text-indigo-600 transition-colors w-fit flex items-center gap-2">LinkedIn <ArrowUpRight size={14} /></a>
-              <a href="#" className="font-bold hover:text-indigo-600 transition-colors w-fit flex items-center gap-2">GitHub <ArrowUpRight size={14} /></a>
-              <a href="#" className="font-bold hover:text-indigo-600 transition-colors w-fit flex items-center gap-2">Twitter <ArrowUpRight size={14} /></a>
+              <a href="https://linkedin.com/in/muhammad-naseef-6b342926a" className="font-bold hover:text-indigo-600 transition-colors w-fit flex items-center gap-2">LinkedIn <ArrowUpRight size={14} /></a>
+              <a href="https://github.com/naseef786" className="font-bold hover:text-indigo-600 transition-colors w-fit flex items-center gap-2">GitHub <ArrowUpRight size={14} /></a>
+              <a href="https://twitter.com/naseef_ac" className="font-bold hover:text-indigo-600 transition-colors w-fit flex items-center gap-2">Twitter <ArrowUpRight size={14} /></a>
             </div>
 
             {/* Column 4: Location */}
@@ -486,48 +499,37 @@ function ExpertiseCard({ icon, title, desc }: any) {
   );
 }
 
-function ProjectCard({ project, index }: { project: any, index: any }) {
+function HeroResumeButton({ playClick }: any) {
+
+  const handleDownload = () => {
+    // 1. Play the systematic click sound
+    playClick();
+
+    // 2. Trigger the download
+    const link = document.createElement('a');
+    link.href = '/Resumes/Muhammad_Naseef_Resume.pdf'; // Path in your /public folder
+    link.download = 'Naseef_MERN_Stack_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
-    <div className="relative group bg-zinc-900 rounded-[2rem] md:rounded-[3rem] border border-white/5 overflow-hidden h-[450px] md:h-[600px] flex flex-col">
-      <div className="h-full w-full overflow-hidden relative">
-        <div
-          className="absolute inset-0 scale-125 transition-transform duration-[1.5s]"
-          data-swiper-parallax="25%"
-        >
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover transition-all duration-700 sm:grayscale sm:group-hover:grayscale-0"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+    <motion.button
+      onClick={handleDownload}
+      whileHover={{ scale: 1 }}
+      whileTap={{ scale: 0.95 }}
+      className="group relative flex items-center gap-3 px-8 py-3 mb-5 bg-white text-black font-bold rounded-full overflow-hidden transition-all"
+    >
+      {/* Animated Background Slide Effect */}
+      <div className="absolute inset-0 bg-indigo-600 translate-y-[101%] group-hover:translate-y-0 transition-transform duration-300 ease-out" />
 
-        <div className="absolute bottom-0 left-0 p-6 md:p-10 w-full" data-swiper-parallax="-100">
-          <div className="flex flex-wrap gap-2 mb-4 md:mb-6">
-            {project.tags.map((t: string) => (
-              <span key={t} className="text-[8px] md:text-[10px] font-mono px-2 md:px-3 py-1 bg-white/10 backdrop-blur-md rounded-full uppercase tracking-widest">{t}</span>
-            ))}
-          </div>
-          <h4 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">{project.title}</h4>
-
-          {/* Desktop Hover / Mobile Visible Links */}
-          <div className="flex justify-between items-end md:opacity-0 md:group-hover:opacity-100 transition-all duration-500 md:translate-y-4 md:group-hover:translate-y-0">
-            <p className="text-white/60 text-xs md:text-sm max-w-[75%] line-clamp-2 md:line-clamp-none">{project.desc}</p>
-            <a href={project.link} target="_blank" className="w-12 h-12 md:w-16 md:h-16 bg-white text-black rounded-xl md:rounded-2xl flex items-center justify-center hover:bg-indigo-500 hover:text-white transition-all">
-              <ArrowUpRight size={20} />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SocialIcon({ icon }: any) {
-  return (
-    <a href="#" className="p-3 md:p-4 rounded-xl md:rounded-2xl border border-black/10 hover:bg-black hover:text-white transition-all">
-      {icon}
-    </a>
+      {/* Content Layer (z-10 to stay above the background slide) */}
+      <span className="relative z-10 text-sm flex items-center gap-2 group-hover:text-white transition-colors duration-300">
+        DOWNLOAD CV
+        <FileDown size={16} className=" transition-transform" />
+      </span>
+    </motion.button>
   );
 }
 // --- CARD COMPONENT (Matching Desktop Screenshot Ratio) ---
@@ -610,7 +612,7 @@ function ExperienceItem({ exp, index }: { exp: any; index: number }) {
       className="group relative border-b border-white/10 py-12 md:py-20 flex flex-col md:flex-row gap-8 md:gap-20 transition-all hover:bg-white/[0.02]"
     >
       {/* Date and Location */}
-      <div className="w-full md:w-1/4">
+      <div className="w-full md:w-1/4 px-5">
         <p className="font-mono text-indigo-500 text-xs tracking-widest mb-2">{exp.period}</p>
         <p className="text-white/30 text-[10px] uppercase tracking-[0.2em]">{exp.location}</p>
       </div>
