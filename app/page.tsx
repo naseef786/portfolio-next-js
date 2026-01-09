@@ -512,7 +512,7 @@ function HeroResumeButton({ playClick }: any) {
 
     // 2. Trigger the download
     const link = document.createElement('a');
-    link.href = '/Resumes/Muhammad_Naseef_Resume.pdf'; // Path in your /public folder
+    link.href = '/resumes/muhammad_naseef_resume.pdf'; // Path in your /public folder
     link.download = 'Naseef_MERN_Stack_Resume.pdf';
     document.body.appendChild(link);
     link.click();
