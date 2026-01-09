@@ -361,11 +361,11 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      <section id="experience" className="py-20 md:py-32 bg-[#030303] text-white px-6 md:px-20">
+      <section id="experience" className=" md:py-32 bg-[#030303] text-white px-6 md:px-20">
         <div className="max-w-7xl mx-auto">
 
           {/* --- SECTION HEADER --- */}
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+          <div className="flex flex-col md:flex-row justify-between md:items-end mb-8 md:mb-20 gap-8">
             <div className="max-w-xl">
               <motion.div
                 initial={{ opacity: 0 }}
@@ -444,7 +444,7 @@ export default function PortfolioPage() {
             {/* Column 1: Brand & Time */}
             <div className="space-y-4">
               <h4 className="font-black text-xl tracking-tighter">N<span className="text-indigo-600">.</span>DEV</h4>
-              <div className="font-mono text-[10px] uppercase tracking-widest text-black/50">
+              <div className="font-mono text-[10px] uppercase tracking-widest text-indigo-800">
                 <p>Local Time</p>
                 <p className="text-black font-bold">{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} GMT+5</p>
               </div>
@@ -452,7 +452,7 @@ export default function PortfolioPage() {
 
             {/* Column 2: Navigation */}
             <div className="flex flex-col gap-3">
-              <p className="font-mono text-[10px] uppercase text-black/30 mb-2">Navigation</p>
+              <p className="font-mono text-[10px] uppercase text-indigo-500 mb-2">Navigation</p>
               {['Home', 'Work', 'Expertise', 'About'].map((item) => (
                 <a key={item} href={`#${item.toLowerCase()}`} className="font-bold hover:text-indigo-600 transition-colors w-fit">{item}</a>
               ))}
@@ -460,7 +460,7 @@ export default function PortfolioPage() {
 
             {/* Column 3: Socials */}
             <div className="flex flex-col gap-3">
-              <p className="font-mono text-[10px] uppercase text-black/30 mb-2">Socials</p>
+              <p className="font-mono text-[10px] uppercase text-indigo-500 mb-2">Socials</p>
               <a href="https://linkedin.com/in/muhammad-naseef-6b342926a" className="font-bold hover:text-indigo-600 transition-colors w-fit flex items-center gap-2">LinkedIn <ArrowUpRight size={14} /></a>
               <a href="https://github.com/naseef786" className="font-bold hover:text-indigo-600 transition-colors w-fit flex items-center gap-2">GitHub <ArrowUpRight size={14} /></a>
               <a href="https://twitter.com/naseef_ac" className="font-bold hover:text-indigo-600 transition-colors w-fit flex items-center gap-2">Twitter <ArrowUpRight size={14} /></a>
@@ -468,7 +468,7 @@ export default function PortfolioPage() {
 
             {/* Column 4: Location */}
             <div className="md:text-right">
-              <p className="font-mono text-[10px] uppercase text-black/30 mb-4">Location</p>
+              <p className="font-mono text-[10px] uppercase text-indigo-500 mb-4">Location</p>
               <p className="font-bold text-lg leading-tight">
                 Based in Dubai,<br />
                 Working Worldwide.
@@ -612,7 +612,7 @@ function ExperienceItem({ exp, index }: { exp: any; index: number }) {
       className="group relative border-b border-white/10 py-12 md:py-20 flex flex-col md:flex-row gap-8 md:gap-20 transition-all hover:bg-white/[0.02]"
     >
       {/* Date and Location */}
-      <div className="w-full md:w-1/4 px-5">
+      <div className="w-full md:w-1/4 md:px-5">
         <p className="font-mono text-indigo-500 text-xs tracking-widest mb-2">{exp.period}</p>
         <p className="text-white/30 text-[10px] uppercase tracking-[0.2em]">{exp.location}</p>
       </div>
