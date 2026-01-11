@@ -26,6 +26,11 @@ import 'swiper/css/navigation';
 // @ts-ignore
 import 'swiper/css/pagination';
 import { useSystemSound } from "@/hooks/useSystemSound";
+import ExperienceItem from "@/components/experience-item";
+import ProjectLandscapeCard from "@/components/projects-and-landscape-card";
+import HeroResumeButton from "@/components/hero-resume-button";
+import ExpertiseCard from "@/components/expertise-card";
+import EngineeringSkills from "@/components/engineering-skills-section";
 
 // --- DATA ---
 const MY_PROJECTS = [
@@ -142,18 +147,7 @@ export default function PortfolioPage() {
   const sectionRef = useRef(null);
   // Fixes the animation issue by tracking the section instead of individual cards
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
-  const handleDownload = () => {
-    // 1. Play the systematic click sound
-    playClick();
 
-    // 2. Trigger the download
-    const link = document.createElement('a');
-    link.href = '/Muhammad_Naseef_Resume.pdf'; // Path in your /public folder
-    link.download = 'Naseef_MERN_Stack_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
   const { scrollYProgress } = useScroll();
   const smoothY = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
@@ -277,7 +271,7 @@ export default function PortfolioPage() {
           </motion.div>
         </div>
       </section>
-
+      <EngineeringSkills />
       {/* --- 4. EXPERTISE SECTION --- */}
       <section id="expertise" className="py-12 md:py-32 px-6 md:px-20 border-y border-white/5">
         <div className="max-w-7xl mx-auto">
@@ -428,12 +422,12 @@ export default function PortfolioPage() {
             </motion.h2>
 
             <motion.a
-              href="mailto:naseef321ac@gmail.com"
+              href="mailto:muhammadnaseef140@gmail.com"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group relative inline-flex items-center gap-4 bg-black text-white px-10 py-6 md:px-16 md:py-10 rounded-full text-xl md:text-3xl font-bold transition-all hover:bg-indigo-600 shadow-2xl"
+              className="group relative inline-flex items-center gap-4 bg-black text-white px-10 py-6  rounded-full text-xl md:text-3xl font-bold transition-all hover:bg-indigo-600 shadow-2xl"
             >
-              naseef321ac@gmail.com
+              muhammadnaseef140@gmail.com
               <ArrowUpRight className="group-hover:rotate-45 transition-transform duration-300" size={32} />
             </motion.a>
           </div>
@@ -489,169 +483,5 @@ export default function PortfolioPage() {
         </div>
       </footer>
     </main>
-  );
-}
-
-// --- SUB-COMPONENTS ---
-
-function ExpertiseCard({ icon, title, desc }: any) {
-  return (
-    <div className="p-8 md:p-10 rounded-[2rem] md:rounded-[3rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] transition-all group">
-      <div className="text-indigo-500 mb-6 group-hover:scale-110 transition-transform origin-left">{icon}</div>
-      <h4 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">{title}</h4>
-      <p className="text-white/40 text-sm leading-relaxed">{desc}</p>
-    </div>
-  );
-}
-
-function HeroResumeButton({ playClick }: any) {
-
-  const handleDownload = () => {
-    // 1. Play the systematic click sound
-    playClick();
-
-    // 2. Trigger the download
-    const link = document.createElement('a');
-    link.href = '/resumes/resume.pdf'; // Path in your /public folder
-    link.download = 'Naseef_MERN_Stack_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  return (
-    <motion.button
-      onClick={handleDownload}
-      whileHover={{ scale: 1 }}
-      whileTap={{ scale: 0.95 }}
-      className="group relative flex items-center gap-3 px-8 py-3 mb-5 bg-white text-black font-bold rounded-full overflow-hidden transition-all"
-    >
-      {/* Animated Background Slide Effect */}
-      <div className="absolute inset-0 bg-indigo-600 translate-y-[101%] group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-
-      {/* Content Layer (z-10 to stay above the background slide) */}
-      <span className="relative z-10 text-sm flex items-center gap-2 group-hover:text-white transition-colors duration-300">
-        DOWNLOAD CV
-        <FileDown size={16} className=" transition-transform" />
-      </span>
-    </motion.button>
-  );
-}
-// --- CARD COMPONENT (Matching Desktop Screenshot Ratio) ---
-function ProjectLandscapeCard({ project, index, parentInView, playClick }: any) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 100 }}
-      animate={parentInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.8, delay: index * 0.15, ease: "easeOut" }}
-      className="group relative flex flex-col gap-6"
-    >
-      {/* Image Container - Forced 16:9 Ratio */}
-      <div className="relative aspect-video w-full overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] bg-zinc-900 border border-white/5 shadow-2xl">
-        <div
-          className="absolute inset-0 scale-110 transition-transform duration-[2s] group-hover:scale-100"
-          data-swiper-parallax="20%"
-        >
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-all duration-700"
-          />
-        </div>
-
-        {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-indigo-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-        {/* Floating Tag */}
-        <div className="absolute top-6 left-6 z-20">
-          <div className="px-4 py-2 rounded-full bg-black/50 backdrop-blur-xl border border-white/10 flex items-center gap-2">
-            <Globe size={12} className="text-indigo-400" />
-            <span className="text-[10px] font-bold tracking-widest uppercase">Live Project</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Info Container */}
-      <div className="px-2">
-        <div className="flex justify-between items-start mb-4">
-          <div>
-            <h4 className="text-3xl md:text-4xl font-black tracking-tighter uppercase group-hover:text-indigo-400 transition-colors">
-              {project.title}
-            </h4>
-            <div className="flex gap-3 mt-2">
-              {project.tags.map((t: string) => (
-                <span key={t} className="text-[10px] font-mono text-white/30 uppercase tracking-widest">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <motion.a
-            href={project.link}
-            target="_blank"
-            onClick={playClick}
-            whileHover={{ scale: 1.1, rotate: 45 }}
-            whileTap={{ scale: 0.9 }}
-            className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-black flex items-center justify-center shadow-xl hover:bg-indigo-500 hover:text-white transition-colors"
-          >
-            <ArrowUpRight size={28} />
-          </motion.a>
-        </div>
-
-        <p className="text-white/40 text-sm md:text-base max-w-2xl leading-relaxed line-clamp-2">
-          {project.desc}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
-
-function ExperienceItem({ exp, index }: { exp: any; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="group relative border-b border-white/10 py-12 md:py-20 flex flex-col md:flex-row gap-8 md:gap-20 transition-all hover:bg-white/[0.02]"
-    >
-      {/* Date and Location */}
-      <div className="w-full md:w-1/4 md:px-5">
-        <p className="font-mono text-indigo-500 text-xs tracking-widest mb-2">{exp.period}</p>
-        <p className="text-white/30 text-[10px] uppercase tracking-[0.2em]">{exp.location}</p>
-      </div>
-
-      {/* Role and Company */}
-      <div className="w-full md:w-3/4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-          <div>
-            <h4 className="text-3xl md:text-5xl font-black tracking-tight uppercase group-hover:text-indigo-400 transition-colors">
-              {exp.role}
-            </h4>
-            <p className="text-xl text-white/60 font-medium mt-2">{exp.company}</p>
-          </div>
-
-          {/* Tech Tags */}
-          <div className="flex flex-wrap gap-2">
-            {exp.skills.map((skill: string) => (
-              <span key={skill} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] font-bold uppercase tracking-tighter">
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Bullet Points */}
-        <ul className="space-y-4 max-w-3xl">
-          {exp.points.map((point: string, idx: number) => (
-            <li key={idx} className="flex gap-4 text-white/50 text-sm md:text-base leading-relaxed group-hover:text-white/80 transition-colors">
-              <span className="text-indigo-600 font-bold mt-1">/</span>
-              {point}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </motion.div>
   );
 }
